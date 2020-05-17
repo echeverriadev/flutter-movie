@@ -6,20 +6,24 @@ class PeliculaDetalle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Pelicula pelicula = ModalRoute.of(context).settings.arguments;
-    return CustomScrollView( 
-      slivers: <Widget>[ 
-        _crearAppBar(pelicula),
-        SliverList(
-          delegate: SliverChildListDelegate( 
-            [
-              SizedBox(height: 10.0),
-              _posterTitulo(context,pelicula),
-              _description(pelicula),
-            ]
-          ) ,)
-      ],
+    return Scaffold( 
+      body: CustomScrollView(
+        slivers: <Widget>[
+          _crearAppBar(pelicula),
+          SliverList( 
+            delegate: SliverChildListDelegate( 
+              [
+                SizedBox(height: 10.0,),
+                _posterTitulo(context,pelicula),
+                _descripcion(pelicula),
+              ]
+            ),
+          )
+        ]
+      )
     );
   }
+
 
   Widget _crearAppBar(Pelicula pelicula){
     return SliverAppBar(  
@@ -44,9 +48,11 @@ class PeliculaDetalle extends StatelessWidget {
     );
   }
 
-  Widget _posterTitulo(BuildContext context , Pelicula pelicula){
-    return Container( 
-      child: Row(  
+  Widget _posterTitulo(BuildContext context, Pelicula pelicula ){
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      child: Row(
         children: <Widget>[
           ClipRRect( 
             borderRadius: BorderRadius.circular(20.0),
@@ -56,32 +62,36 @@ class PeliculaDetalle extends StatelessWidget {
           ),
           ),
           SizedBox(width: 20.0,),
-          Flexible( 
-            child: Column( 
+          Flexible(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(pelicula.title, style: Theme.of(context).textTheme.headline6, overflow: TextOverflow.ellipsis,),
-                Text(pelicula.originalTitle,  style: Theme.of(context).textTheme.subtitle1, overflow: TextOverflow.ellipsis,),
-                Row(children: <Widget>[
-                  Icon(Icons.star_border),
-                  Text(pelicula.voteAverage.toString(),  style: Theme.of(context).textTheme.subtitle1)
-                ],)
+                Text(pelicula.title, style: Theme.of(context).textTheme.headline6, overflow: TextOverflow.ellipsis ),
+                Text(pelicula.originalTitle, style: Theme.of(context).textTheme.subtitle1, overflow: TextOverflow.ellipsis ),
+                Row(
+                  children: <Widget>[
+                    Icon( Icons.star_border ),
+                    Text( pelicula.voteAverage.toString(), style: Theme.of(context).textTheme.subtitle1 )
+                  ],
+                )
               ],
             ),
           )
-
         ],
       ),
     );
+
   }
 
-  Widget _description( Pelicula pelicula){
-    return Container( 
+  Widget _descripcion( Pelicula pelicula ) {
+
+    return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
       child: Text(
         pelicula.overview,
         textAlign: TextAlign.justify,
       ),
     );
+
   }
 }
